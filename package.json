@@ -1,0 +1,35 @@
+{
+  "name": "gitd50",
+  "version": "1.0.0",
+  "description": "gitd50",
+  "main": "gulpfile.js",
+  "scripts": {
+    "start": "gulp serve",
+    "deploy": "gulp --production"
+  },
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/sohakes/kongregate-gitd50.git"
+  },
+  "devDependencies": {
+    "babel": "latest",
+    "babelify": "^6.1.3",
+    "browserify": "^9.0.8",
+    "browserify-shim": "^3.8.6",
+    "gulp": "^3.9.0",
+    "gulp-connect": "^2.2.0",
+    "gulp-flatten": "^0.2.0",
+    "gulp-if": "^1.2.5",
+    "gulp-imagemin": "^2.2.1",
+    "gulp-jscs": "latest",
+    "gulp-jshint": "latest",
+    "gulp-main-bower-files": "^1.2.5",
+    "gulp-uglify": "^1.2.0",
+    "jshint": "^2.8.0",
+    "jshint-stylish": "^1.0.1",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "yargs": "^3.23.0"
+  },
+  "dependencies": {}
+}

@@ -1,0 +1,17 @@
+{
+  "name": "gitd50",
+  "description": "gitd50",
+  "main": "gulpfile.js",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "phaser": "~2.4.4"
+  }
+}
