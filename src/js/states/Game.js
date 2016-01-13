@@ -10,7 +10,7 @@ export default class Game {
 
     this.game.isPaused = false
 
-    this.map = new Map(10, 10, 32, 32, 0, 0)
+    this.map = new Map(this.game, 10, 10, 40, 40, 0, 0)
 
     this.character = new Character(this.game, 2, 2, this.map)
 

@@ -1,7 +1,7 @@
 import Tile from '../objects/Tile'
 
 export default class Map {
-  constructor (widthMap, heightMap, widthTile, heightTile, startX, startY) {
+  constructor (game, widthMap, heightMap, widthTile, heightTile, startX, startY) {
     this.startX = startX
     this.startY = startY
     this.widthTile = widthTile
@@ -9,6 +9,7 @@ export default class Map {
     this.grid = []
     this.widthMap = widthMap
     this.heightMap = heightMap
+    this.game = game
     this.createMap(widthMap, heightMap, this.grid)
   }
 
@@ -18,7 +19,7 @@ export default class Map {
       let row = []
       for (let j = 0; j < heightMap; j++) {
         let position = this.getRealTilePosition(i, j)
-        row.push(new Tile(i, j, position.x, position.y))
+        row.push(new Tile(this.game, i, j, position.x, position.y))
       }
       grid.push(row)
     }
