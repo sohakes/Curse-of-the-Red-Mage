@@ -1,3 +1,5 @@
+const SPRITEIMGS = require('../../json/sprites.json')
+
 export default class Preload {
   preload () {
     let styling = {
@@ -31,11 +33,17 @@ export default class Preload {
 
   loadSprites () {
     const sprites = []
+    const spriteImgs = SPRITEIMGS
 
     sprites.forEach(sprite => this.load.atlasJSONHash(
       `${sprite}`,
       `assets/img/${sprite}.png`,
       `assets/json/img/${sprite}.json`
+    ))
+
+    spriteImgs.forEach(sprite => this.load.image(
+      `${sprite.spriteName}`,
+      `assets/img/${sprite.fileName}`
     ))
   }
 

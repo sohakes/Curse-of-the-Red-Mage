@@ -50,9 +50,6 @@ gulp.task('scripts', ['json'], function () {
       overrides: {
         phaser: {
           main: './build/phaser.min.js'
-        },
-        'phaser-plugin-isometric': {
-          main: './dist/phaser-plugin-isometric.min.js'
         }
       }
     }))
