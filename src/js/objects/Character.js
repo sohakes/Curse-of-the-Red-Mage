@@ -23,18 +23,23 @@ export default class Character extends GameSprite {
       return
     }
 
+    let beforeX = this.mx
+    let beforeY = this.my
+
     if (direction == 0) { //left
-      if (this.mx - 1 < 0) return;
       this.mx--
     } else if (direction == 1) { //down
-      if (this.my + 1 >= this.map.heightMap) return;
       this.my++
     } else if (direction == 2) { //right
-      if (this.mx + 1 >= this.map.widthMap) return;
       this.mx++
     } else if (direction == 3) { //up
-      if (this.my - 1 < 0) return;
       this.my--
+    }
+
+    if (!this.valid (this.mx, this.my)) {
+      this.mx = beforeX
+      this.my = beforeY
+      return
     }
 
     this.x = this.map.grid[this.mx][this.my].realX
@@ -61,7 +66,14 @@ export default class Character extends GameSprite {
     }
   }
 
-  valid (tile) {
+  valid (x, y) {
+    if (x - 1 < 0) return false
+    if (y + 1 >= this.map.heightMap) return false
+    if (x + 1 >= this.map.widthMap) return false
+    if (y - 1 < 0) return false
+    if (!this.map.grid[x][y].isWalkable()) return false
+
+
     return true
   }
 }

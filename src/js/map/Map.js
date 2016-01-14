@@ -1,4 +1,5 @@
 import Tile from '../objects/Tile'
+import Obstacle from '../objects/Obstacle'
 
 export default class Map {
   constructor (game, widthMap, heightMap, widthTile, heightTile, startX, startY) {
@@ -10,6 +11,8 @@ export default class Map {
     this.widthMap = widthMap
     this.heightMap = heightMap
     this.game = game
+    this.tileGroup = this.game.add.group()
+    this.objectGroup = this.game.add.group()
     this.createMap(widthMap, heightMap, this.grid)
   }
 
@@ -19,7 +22,13 @@ export default class Map {
       let row = []
       for (let j = 0; j < heightMap; j++) {
         let position = this.getRealTilePosition(i, j)
-        row.push(new Tile(this.game, i, j, position.x, position.y))
+        let obstacle = null;
+        if (Math.random() < 0.3) {
+          obstacle = new Obstacle(this.game, i, j, position.x,
+            position.y, this.objectGroup)
+        }
+        row.push(new Tile(this.game, i, j, position.x, position.y,
+          this.tileGroup, obstacle))
       }
       grid.push(row)
     }
