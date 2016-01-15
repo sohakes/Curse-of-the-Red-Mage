@@ -7,5 +7,6 @@ export default class Tile extends GameSprite {
     this.my = my
     this.realX = realX
     this.realY = realY
+    this.scale.setTo(0.5, 0.5)
   }
 }
