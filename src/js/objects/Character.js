@@ -33,15 +33,17 @@ export default class Character extends GameSprite {
     } else {
       this.movement = this.cursors
     }
-    if (type == 1) {
-      this.tintAll(this.mx, this.my, this.map.grid[this.mx][this.my].getLight(1, 255, 0, 0))
-  } else {
-      this.tintAll(this.mx, this.my, this.map.grid[this.mx][this.my].getLight(1, 0, 0, 255))
-    }}
 
-  tintAll (mx, my, color) {
+    this.tintAll(this.mx, this.my)
 
-    this.surroundings.map(function (el) { el[0].setLight(0x000000); el[0].explored = false});
+  }
+
+  tintAll (mx, my) {
+
+    this.surroundings.map(function (el) {
+      el[0].setLight(0, this.getPlayerColor(), this.playerType);
+      el[0].explored = false
+    }.bind(this));
 
     let explored = [];
     let frontier = [];
@@ -52,7 +54,7 @@ export default class Character extends GameSprite {
       let cur = frontier.pop();
       let cx = cur[0].mx;
       let cy = cur[0].my;
-      console.log(cur);
+      //console.log(cur);
       explored.push(cur);
       cur[0].explored = true;
 
@@ -72,7 +74,16 @@ export default class Character extends GameSprite {
     this.surroundings = explored;
 
     for (let i in this.surroundings) {
-      this.surroundings[i][0].setLight(this.getColor(  this.surroundings[i][1]))
+      this.surroundings[i][0].setLight(this.surroundings[i][1],
+        this.getPlayerColor(), this.playerType)
+    }
+  }
+
+  getColor (r, g, b) {
+    return {
+      r: r,
+      g: g,
+      b: b
     }
   }
 
@@ -110,18 +121,18 @@ export default class Character extends GameSprite {
     }, this);
 
     let color = 0x000000
-    if (this.playerType == 1) {
+    if (this.playerType === 1) {
       this.tintAll(this.mx, this.my, this.getColor(1))
     } else {
       this.tintAll(this.mx, this.my, this.getColor(1))
     }
   }
 
-  getColor (intensity) {
-    if (this.playerType == 1) {
-      return this.map.grid[this.mx][this.my].getLight(intensity, 255, 255, 255)
+  getPlayerColor () {
+    if (this.playerType === 1) {
+      return this.getColor(255, 255, 255)
     } else {
-      return this.map.grid[this.mx][this.my].getLight(intensity, 255, 255, 255)
+      return this.getColor(255, 255, 255)
     }
   }
 

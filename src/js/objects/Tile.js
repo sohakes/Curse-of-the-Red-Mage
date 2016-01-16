@@ -11,6 +11,8 @@ export default class Tile extends GameSprite {
     this.obstacle = obstacle
     this.scale.setTo(this.game.gameScale, this.game.gameScale)
     this.tint = 0x000000
+    this.intensity = 0
+    this.lightSources = {}
   }
 
   isWalkable () {
@@ -18,22 +20,42 @@ export default class Tile extends GameSprite {
   }
 
   //at least one of the values of r, g and b must be 255
-  getLight (intensity, r, g, b) {
+  setLight (intensity, color, lightSource) {
     let rgbToHex = function (r, g, b) {
       return r << 16 | g << 8 | b
     }
 
-    let nr = intensity * r
-    let ng = intensity * g
-    let nb = intensity * b
-    console.log(rgbToHex (nr, ng, nb))
-    return rgbToHex (nr, ng, nb)
-  }
+    if (!lightSource) {
+      console.log("error")
+    }
 
-  setLight (color) {
-    this.tint = color
+    this.lightSources[lightSource] = intensity
+
+    //console.log("first"+intensity)
+
+    for (let source in this.lightSources) {
+      if (this.lightSources.hasOwnProperty(source)) {
+          //blend the colors. For now just the intensity
+        if (lightSource !== source) {
+          intensity += this.lightSources[source]
+        }
+      }
+    }
+
+    if (intensity > 1) {
+      intensity = 1
+    }
+
+    //console.log("second"+intensity)
+
+    let nr = intensity * color.r
+    let ng = intensity * color.g
+    let nb = intensity * color.b
+    //console.log(rgbToHex (nr, ng, nb))
+    let light = rgbToHex (nr, ng, nb)
+    this.tint = light
     if (this.obstacle != null) {
-      this.obstacle.tint = color
+      this.obstacle.tint = light
     }
   }
 }
