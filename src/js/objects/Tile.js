@@ -26,6 +26,7 @@ export default class Tile extends GameSprite {
         text += source + ": " + this.lightSources[source].toPrecision(2) + "\n"
       }
     }
+    return ""
     return text + "int: " + this.intensity.toPrecision(2)
   }
 

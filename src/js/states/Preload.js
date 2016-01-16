@@ -27,7 +27,7 @@ export default class Preload {
   }
 
   create () {
-    this.state.start('game', true, false, this.data)
+    this.state.start('kraiom', true, false, this.data)
   }
 
 

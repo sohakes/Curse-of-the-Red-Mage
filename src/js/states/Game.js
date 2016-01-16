@@ -1,8 +1,11 @@
 import Map from '../map/Map'
 import Character from '../objects/Character'
+import UI from '../ui/Ui'
 
 export default class Game {
   create () {
+
+
     this.game.gameScale = 1.2
 
     this.game.world.setBounds(0, 0, GAME.width, GAME.height)
@@ -26,6 +29,13 @@ export default class Game {
        [mapWidth - 2,mapHeight - 3] : [mapWidth - 2,mapHeight - 2]);
 
     this.character = new Character(this.game, start2[0], start2[1], this.map, 2)
+
+    this.runningTime = this.time.create(false)
+    this.runningTime.start()
+
+    this.ui = new UI(this)
+
+    this.ui.buildInterface()
   }
 
 
@@ -34,10 +44,15 @@ export default class Game {
   }
 
   update () {
+    this.ui.update()
+    if (this.runningTime.seconds >= 30) {
+      lost()
+    }
 
   }
 
   lost () {
+    this.ui.lost()
   }
 
   won () {

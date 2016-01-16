@@ -2,5 +2,9 @@
   {
     "spriteName": "character",
     "fileName": "character.png"
+  },
+  {
+    "spriteName": "kraiom",
+    "fileName": "kraiom.png"
   }
 ]
