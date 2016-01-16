@@ -31,9 +31,14 @@ export default class Character extends GameSprite {
     } else {
       this.movement = this.cursors
     }
-  }
+    if (type == 1) {
+      this.tintAll(this.mx, this.my, this.map.grid[this.mx][this.my].getLight(1, 255, 100, 100))
+  } else {
+      this.tintAll(this.mx, this.my, this.map.grid[this.mx][this.my].getLight(1, 100, 100, 255))
+    }}
 
   tintAll (mx, my, color) {
+    this.map.grid[mx][my].setLight(color)
     if (this.validTemp(mx + 1, my)) {
       this.map.grid[mx + 1][my].setLight(color)
     }
@@ -76,7 +81,7 @@ export default class Character extends GameSprite {
     this.y = this.map.grid[this.mx][this.my].realY
 
     this.justWalked = true
-    this.game.time.events.add(Phaser.Timer.SECOND * 0.5, function () {
+    this.game.time.events.add(Phaser.Timer.SECOND * 0.2, function () {
       this.justWalked = false
     }, this);
 
