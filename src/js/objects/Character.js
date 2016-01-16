@@ -17,7 +17,7 @@ export default class Character extends GameSprite {
 
     this.map = map
 
-    this.scale.setTo(0.5, 0.5)
+    this.scale.setTo(this.game.gameScale, this.game.gameScale)
 
     this.playerType = type
 

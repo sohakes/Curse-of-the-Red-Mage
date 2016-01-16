@@ -9,7 +9,7 @@ export default class Tile extends GameSprite {
     this.realX = realX
     this.realY = realY
     this.obstacle = obstacle
-    this.scale.setTo(0.5, 0.5)
+    this.scale.setTo(this.game.gameScale, this.game.gameScale)
     this.tint = 0x000000
   }
 
