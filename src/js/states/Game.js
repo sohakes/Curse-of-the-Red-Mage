@@ -3,7 +3,7 @@ import Character from '../objects/Character'
 
 export default class Game {
   create () {
-    this.game.gameScale = 1.6
+    this.game.gameScale = 1.2
 
     this.game.world.setBounds(0, 0, GAME.width, GAME.height)
 

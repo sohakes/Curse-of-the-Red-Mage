@@ -51,21 +51,27 @@ export default class Character extends GameSprite {
     let directions = {'N': [0,-1], 'S': [0,1], 'E': [1,0], 'W': [-1,0]};
 
     while (frontier.length > 0) {
-      let cur = frontier.pop();
+      let cur = frontier.shift();
       let cx = cur[0].mx;
       let cy = cur[0].my;
       //console.log(cur);
       explored.push(cur);
-      cur[0].explored = true;
+      cur[0].explored = this.playerType;
 
-      if (cur[0].obstacle) continue;
+      if (cur[0].obstacle) {
+        cur[1] -= 0.1
+        if (cur[1] < 0) {
+          cur[1] = 0
+        }
+        continue;
+      }
 
       for (let dir in directions) {
         let nx = cx + directions[dir][0];
         let ny = cy + directions[dir][1];
 
         let light = cur[1] - (dir in cur[2] ? 0.05 : 0.1);
-        if (!this.map.grid[nx][ny].explored && light > 0.01) {
+        if (this.map.grid[nx][ny].explored != this.playerType && light > 0.01) {
           frontier.push([this.map.grid[nx][ny], light, {dir: true}]);
         }
       }

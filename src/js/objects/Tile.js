@@ -13,6 +13,20 @@ export default class Tile extends GameSprite {
     this.tint = 0x000000
     this.intensity = 0
     this.lightSources = {}
+    this.explored = 0
+
+    let style = { font: "10px Arial", fill: "#ff0044", wordWrap: true, wordWrapWidth: this.width};
+    this.text = this.game.add.text(realX, realY, this.getTileDebugText(), style);
+  }
+
+  getTileDebugText () {
+    let text = ""
+    for (let source in this.lightSources) {
+      if (this.lightSources.hasOwnProperty(source)) {
+        text += source + ": " + this.lightSources[source].toPrecision(2) + "\n"
+      }
+    }
+    return text + "int: " + this.intensity.toPrecision(2)
   }
 
   isWalkable () {
@@ -31,12 +45,13 @@ export default class Tile extends GameSprite {
 
     this.lightSources[lightSource] = intensity
 
+
     //console.log("first"+intensity)
 
     for (let source in this.lightSources) {
       if (this.lightSources.hasOwnProperty(source)) {
           //blend the colors. For now just the intensity
-        if (lightSource !== source) {
+        if (lightSource != source) {
           intensity += this.lightSources[source]
         }
       }
@@ -45,6 +60,10 @@ export default class Tile extends GameSprite {
     if (intensity > 1) {
       intensity = 1
     }
+
+    this.intensity = intensity
+
+    this.text.text = this.getTileDebugText()
 
     //console.log("second"+intensity)
 
