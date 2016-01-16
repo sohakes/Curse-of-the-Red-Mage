@@ -34,9 +34,9 @@ export default class Character extends GameSprite {
       this.movement = this.cursors
     }
     if (type == 1) {
-      this.tintAll(this.mx, this.my, this.map.grid[this.mx][this.my].getLight(1, 255, 100, 100))
+      this.tintAll(this.mx, this.my, this.map.grid[this.mx][this.my].getLight(1, 255, 0, 0))
   } else {
-      this.tintAll(this.mx, this.my, this.map.grid[this.mx][this.my].getLight(1, 100, 100, 255))
+      this.tintAll(this.mx, this.my, this.map.grid[this.mx][this.my].getLight(1, 0, 0, 255))
     }}
 
   tintAll (mx, my, color) {
@@ -62,8 +62,8 @@ export default class Character extends GameSprite {
         let nx = cx + directions[dir][0];
         let ny = cy + directions[dir][1];
 
-        let light = cur[1] - (dir in cur[2] ? 0.1 : 0.3);
-        if (!this.map.grid[nx][ny].explored && light > 0.05) {
+        let light = cur[1] - (dir in cur[2] ? 0.05 : 0.1);
+        if (!this.map.grid[nx][ny].explored && light > 0.01) {
           frontier.push([this.map.grid[nx][ny], light, {dir: true}]);
         }
       }
@@ -72,7 +72,7 @@ export default class Character extends GameSprite {
     this.surroundings = explored;
 
     for (let i in this.surroundings) {
-      this.surroundings[i][0].setLight(color)
+      this.surroundings[i][0].setLight(this.getColor(  this.surroundings[i][1]))
     }
   }
 
@@ -111,9 +111,17 @@ export default class Character extends GameSprite {
 
     let color = 0x000000
     if (this.playerType == 1) {
-      this.tintAll(this.mx, this.my, this.map.grid[this.mx][this.my].getLight(1, 255, 100, 100))
+      this.tintAll(this.mx, this.my, this.getColor(1))
     } else {
-      this.tintAll(this.mx, this.my, this.map.grid[this.mx][this.my].getLight(1, 100, 100, 255))
+      this.tintAll(this.mx, this.my, this.getColor(1))
+    }
+  }
+
+  getColor (intensity) {
+    if (this.playerType == 1) {
+      return this.map.grid[this.mx][this.my].getLight(intensity, 255, 255, 255)
+    } else {
+      return this.map.grid[this.mx][this.my].getLight(intensity, 255, 255, 255)
     }
   }
 
