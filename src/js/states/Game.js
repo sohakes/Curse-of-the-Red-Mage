@@ -14,9 +14,13 @@ export default class Game {
 
     this.map = new Map(this.game, 40, 24, 20, 20, 0, 0)
 
-    this.character = new Character(this.game, 2, 2, this.map, 1)
+    let start1 = (this.map.grid[1][1].obstacle ? [1,2] : [1,1]);
 
-    this.character = new Character(this.game, 38, 22, this.map, 2)
+    this.character = new Character(this.game, start1[0], start1[1], this.map, 1)
+
+    let start2 = (this.map.grid[38][22].obstacle ? [38,21] : [38,22]);
+
+    this.character = new Character(this.game, start2[0], start2[1], this.map, 2)
   }
   
 

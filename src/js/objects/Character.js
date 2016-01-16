@@ -21,6 +21,8 @@ export default class Character extends GameSprite {
 
     this.playerType = type
 
+    this.surroundings = []
+
     if (type == 1) {
       this.movement = {
         up: this.game.input.keyboard.addKey(Phaser.Keyboard.W),
@@ -38,20 +40,42 @@ export default class Character extends GameSprite {
     }}
 
   tintAll (mx, my, color) {
-    this.map.grid[mx][my].setLight(color)
-    if (this.validTemp(mx + 1, my)) {
-      this.map.grid[mx + 1][my].setLight(color)
+
+    this.surroundings.map(function (el) { el[0].setLight(0x000000); el[0].explored = false});
+
+    let explored = [];
+    let frontier = [];
+    frontier.push([this.map.grid[mx][my], 1.0, {'N': true, 'S': true, 'E': true, 'W': true}]);
+    let directions = {'N': [0,-1], 'S': [0,1], 'E': [1,0], 'W': [-1,0]};
+
+    while (frontier.length > 0) {
+      let cur = frontier.pop();
+      let cx = cur[0].mx;
+      let cy = cur[0].my;
+      console.log(cur);
+      explored.push(cur);
+      cur[0].explored = true;
+
+      if (cur[0].obstacle) continue;
+
+      for (let dir in directions) {
+        let nx = cx + directions[dir][0];
+        let ny = cy + directions[dir][1];
+
+        let light = cur[1] - (dir in cur[2] ? 0.1 : 0.3);
+        if (!this.map.grid[nx][ny].explored && light > 0.05) {
+          frontier.push([this.map.grid[nx][ny], light, {dir: true}]);
+        }
+      }
     }
-    if (this.validTemp(mx - 1, my)) {
-      this.map.grid[mx - 1][my].setLight(color)
-    }
-    if (this.validTemp(mx, my + 1)) {
-      this.map.grid[mx][my + 1].setLight(color)
-    }
-    if (this.validTemp(mx, my - 1)) {
-      this.map.grid[mx][my - 1].setLight(color)
+
+    this.surroundings = explored;
+
+    for (let i in this.surroundings) {
+      this.surroundings[i][0].setLight(color)
     }
   }
+
 
   move (direction) {
     if (this.justWalked) {
@@ -94,9 +118,7 @@ export default class Character extends GameSprite {
   }
 
 
-
   update () {
-
     if (this.movement.left.isDown) {
       this.move(0)
     } else if (this.movement.down.isDown) {
@@ -109,21 +131,10 @@ export default class Character extends GameSprite {
   }
 
   valid (x, y) {
-    if (x - 1 < 0) return false
-    if (y + 1 >= this.map.heightMap) return false
-    if (x + 1 >= this.map.widthMap) return false
-    if (y - 1 < 0) return false
-    if (!this.map.grid[x][y].isWalkable()) return false
-
-    return true
+    return this.map.grid[x][y].isWalkable()
   }
 
   validTemp (x, y) {
-    if (x - 1 < 0) return false
-    if (y + 1 >= this.map.heightMap) return false
-    if (x + 1 >= this.map.widthMap) return false
-    if (y - 1 < 0) return false
-
     return true
   }
 }
