@@ -39,13 +39,6 @@ export default class Menu {
       button_style
     )
 
-    this.tutorial = this.add.text(
-      this.game.world.centerX,
-      this.game.world.centerY + 120,
-      'Tutorial',
-      button_style
-    )
-
     this.credits = this.add.text(
       this.game.world.centerX,
       this.game.world.centerY + 170,
@@ -57,7 +50,7 @@ export default class Menu {
     this.start.input.useHandCursor = true
 
     this.start.events.onInputDown.add(() => {
-      this.state.start('game', true, false)
+      this.state.start('intro', true, false,)
     })
 
     this.start.events.onInputOver.add(() => {
@@ -66,23 +59,6 @@ export default class Menu {
 
     this.start.events.onInputOut.add(() => {
       this.start.setStyle(button_style)
-    })
-
-    this.tutorial.inputEnabled = true
-    this.tutorial.input.useHandCursor = true
-
-    this.tutorial.events.onInputDown.add(() => {
-      this.state.start('game', true, false, {
-        tutorial: true
-      })
-    })
-
-    this.tutorial.events.onInputOver.add(() => {
-      this.tutorial.setStyle(button_style_over)
-    })
-
-    this.tutorial.events.onInputOut.add(() => {
-      this.tutorial.setStyle(button_style)
     })
 
     this.credits.inputEnabled = true
@@ -103,6 +79,5 @@ export default class Menu {
     this.title.anchor.setTo(0.5)
     this.start.anchor.setTo(0.5)
     this.credits.anchor.setTo(0.5)
-    this.tutorial.anchor.setTo(0.5)
   }
 }
