@@ -27,7 +27,7 @@ export default class Tile extends GameSprite {
       }
     }
     return ""
-    return text + "int: " + this.intensity.toPrecision(2)
+    //return text + "int: " + this.intensity.toPrecision(2)
   }
 
   isWalkable () {
@@ -46,15 +46,10 @@ export default class Tile extends GameSprite {
 
     this.lightSources[lightSource] = intensity
 
-
-    //console.log("first"+intensity)
-
     for (let source in this.lightSources) {
       if (this.lightSources.hasOwnProperty(source)) {
-          //blend the colors. For now just the intensity
-        if (lightSource != source) {
-          intensity += this.lightSources[source]
-        }
+        //blend the colors. For now just the intensity
+        intensity = Math.max(intensity, this.lightSources[source]);
       }
     }
 

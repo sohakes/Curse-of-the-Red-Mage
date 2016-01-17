@@ -40,6 +40,66 @@ export default class Character extends GameSprite {
 
   tintAll (mx, my) {
 
+    var swp = function (heap, i, j) {
+      heap[j] = [heap[i], heap[i] = heap[j]][0];
+    }
+
+    var heapInsert = function (heap, value) {
+      heap.push(value);
+      let idx = heap.length -1;
+      let par = Math.floor((idx-1)/2);
+      while (idx > 0 && heap[idx][1] > heap[par][1]) {
+        swp(heap, idx, par);
+        idx = par;
+        par = Math.floor((idx-1)/2);
+      }
+    }
+
+    var heapPop = function (heap) {
+      let end = heap.length -1;
+      swp(heap, 0, end);
+      let ret = heap.pop();
+      let idx = 0;
+      let ls = idx*2+1;
+      let rs = idx*2+2;
+      while (rs < heap.length) {
+        if (heap[idx][1] < heap[ls][1] && heap[idx][1] < heap[rs][1]) {
+          if (heap[ls][1] < heap[rs][1]) {
+            swp(heap, idx, rs);
+            idx = rs;
+            ls = idx*2+1;
+            rs = idx*2+2;
+          } else {
+            swp(heap, idx, ls);
+            idx = ls;
+            ls = idx*2+1;
+            rs = idx*2+2;
+          }
+          continue;
+        } else if (heap[idx][1] < heap[ls][1]) {
+          swp(heap, idx, ls);
+          idx = ls;
+          ls = idx*2+1;
+          rs = idx*2+2;
+        } else if (heap[idx][1] < heap[rs][1]) {
+          swp(heap, idx, rs);
+          idx = rs;
+          ls = idx*2+1;
+          rs = idx*2+2;
+        } else {
+          return ret;
+        }
+      }
+      if (ls < heap.length && heap[idx][1] < heap[ls][1]) {
+        swp(heap, idx, ls);
+        idx = ls;
+        ls = idx*2+1;
+        rs = idx*2+2;
+      }
+      return ret;
+    }
+
+
     this.surroundings.map(function (el) {
       el[0].setLight(0, this.getPlayerColor(), this.playerType);
       el[0].explored = false
@@ -47,14 +107,13 @@ export default class Character extends GameSprite {
 
     let explored = [];
     let frontier = [];
-    frontier.push([this.map.grid[mx][my], 1.0, {'N': true, 'S': true, 'E': true, 'W': true}]);
+    heapInsert(frontier, [this.map.grid[mx][my], 1.0, {'N': true, 'S': true, 'E': true, 'W': true}]);
     let directions = {'N': [0,-1], 'S': [0,1], 'E': [1,0], 'W': [-1,0]};
 
     while (frontier.length > 0) {
-      let cur = frontier.shift();
+      let cur = heapPop(frontier);
       let cx = cur[0].mx;
       let cy = cur[0].my;
-      //console.log(cur);
       explored.push(cur);
       cur[0].explored = this.playerType;
 
@@ -72,7 +131,7 @@ export default class Character extends GameSprite {
 
         let light = cur[1] - (dir in cur[2] ? 0.05 : 0.1);
         if (this.map.grid[nx][ny].explored != this.playerType && light > 0.01) {
-          frontier.push([this.map.grid[nx][ny], light, {dir: true}]);
+          heapInsert(frontier, [this.map.grid[nx][ny], light, {dir: true}]);
         }
       }
     }
