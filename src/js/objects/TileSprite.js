@@ -15,9 +15,17 @@ export default class TileSprite extends GameSprite {
 
     this.map = map
 
+    this.updateRealPos()
+
     this.associatedTile = map.grid[mx][my]
 
     this.scale.setTo(this.game.gameScale, this.game.gameScale)
+  }
+
+  updateRealPos () {
+    this.realX = this.map.grid[this.mx][this.my].realX
+
+    this.realY = this.map.grid[this.mx][this.my].realY
   }
 
   isSamePlace (object) {

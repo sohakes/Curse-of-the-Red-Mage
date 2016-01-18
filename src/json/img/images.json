@@ -10,5 +10,9 @@
   {
     "spriteName": "mage",
     "fileName": "mage.png"
+  },
+  {
+    "spriteName": "fireball",
+    "fileName": "fireball.png"
   }
 ]

@@ -6,6 +6,8 @@ const GAME = require('../../json/game.json')
 
 export default class Game {
   create () {
+    this.game.physics.startSystem(Phaser.Physics.ARCADE);
+
     this.started = false
 
     this.specialLevel = 2
@@ -66,8 +68,7 @@ export default class Game {
 
     this.endFlag = false
 
-
-
+    this.registerUpdate = []
   }
 
 
@@ -89,6 +90,13 @@ export default class Game {
 
   update () {
     this.ui.update()
+
+    this.registerUpdate.forEach((r) => {
+      if (r !== null) {
+        r.update()
+      }
+    })
+
     if (this.started === false) {
 
       if (this.startTime.seconds >= 3) {
@@ -109,7 +117,7 @@ export default class Game {
         this.character2.mx, this.character2.my)) {
       this.won()
     } else {
-      if (this.specialLevel === this.level 
+      if (this.specialLevel === this.level
         && !this.activatedSpecial && this.character1.isSamePlace(this.pinkTile)
         && this.character2.isSamePlace(this.blueTile)) {
           this.character1.destroy()

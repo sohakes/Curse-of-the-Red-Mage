@@ -124,6 +124,8 @@ export default class Character extends TileSprite {
     this.x = this.map.grid[this.mx][this.my].realX
     this.y = this.map.grid[this.mx][this.my].realY
 
+    this.updateRealPos ()
+
     this.justWalked = true
     this.game.time.events.add(Phaser.Timer.SECOND * 0.2, function () {
       this.justWalked = false
