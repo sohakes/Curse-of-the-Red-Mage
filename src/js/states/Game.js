@@ -109,7 +109,8 @@ export default class Game {
         this.character2.mx, this.character2.my)) {
       this.won()
     } else {
-      if (!this.activatedSpecial && this.character1.isSamePlace(this.pinkTile)
+      if (this.specialLevel === this.level 
+        && !this.activatedSpecial && this.character1.isSamePlace(this.pinkTile)
         && this.character2.isSamePlace(this.blueTile)) {
           this.character1.destroy()
           this.character2.destroy()
