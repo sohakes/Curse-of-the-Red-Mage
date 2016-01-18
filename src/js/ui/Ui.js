@@ -96,7 +96,7 @@ export default class UI {
     const lostTextSub = this.game.add.text(
       this.game.world.centerX,
       this.game.world.centerY,
-      'You both died :(. Press any key to go back to menu.',
+      'You both died :(. Press ENTER to go back to menu.',
       smaller_text
     )
 
@@ -117,7 +117,7 @@ export default class UI {
       this.game.world.centerX,
       this.game.world.centerY,
       'Your score is ' + this.context.data.score
-        + '. Press any key to go back to menu',
+        + '. Press ENTER to go back to menu',
       smaller_text
     )
 
