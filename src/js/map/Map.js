@@ -2,7 +2,9 @@ import Tile from '../objects/Tile'
 import Obstacle from '../objects/Obstacle'
 
 export default class Map {
-  constructor (game, widthMap, heightMap, widthTile, heightTile, startX, startY) {
+  constructor (game, widthMap, heightMap, widthTile,
+      heightTile, startX, startY, context) {
+    this.context = context
     this.startX = startX
     this.startY = startY
     this.widthTile = widthTile
@@ -14,6 +16,50 @@ export default class Map {
     this.tileGroup = this.game.add.group()
     this.objectGroup = this.game.add.group()
     this.createMap(widthMap, heightMap, this.grid)
+
+    if (this.context.level === this.context.specialLevel) {
+      let roomWidth = Math.floor(widthMap * 0.4)
+      let roomHeight = Math.floor(heightMap * 0.4)
+
+      if (roomWidth % 2 === 0) {
+        roomWidth++
+      }
+
+      if (roomHeight % 2 === 0) {
+        roomHeight++
+      }
+
+      let middleX = Math.floor(widthMap / 2)
+      let middleY = Math.floor(heightMap / 2)
+
+      let roomStartX = middleX - Math.floor(roomWidth / 2)
+      let roomStartY = middleY - Math.floor(roomHeight / 2)
+
+      for (let i = roomStartX; i < roomStartX + roomWidth; i++) {
+        for (let j = roomStartY; j < roomStartY + roomHeight; j++) {
+          if (this.grid[i][j].obstacle != null) {
+            this.grid[i][j].obstacle.destroy()
+            this.grid[i][j].obstacle = null
+          }
+        }
+      }
+
+      this.grid[middleX][middleY - 2].setLight(1, this.getColor(255, 200, 200), 10)
+      this.grid[middleX - 1][middleY - 2].setLight(1, this.getColor(255, 0, 255), 10)
+      this.grid[middleX + 1][middleY - 2].setLight(1, this.getColor(0, 0, 255), 10)
+
+      this.context.pinkTile = this.grid[middleX - 1][middleY - 2]
+      this.context.blueTile = this.grid[middleX + 1][middleY - 2]
+      this.context.fusionTile = this.grid[middleX][middleY - 2]
+    }
+  }
+
+  getColor (r, g, b) {
+    return {
+      r,
+      g,
+      b
+    }
   }
 
   createMap (widthMap, heightMap, grid) {

@@ -57,9 +57,9 @@ export default class Intro {
       this.counter++
       if (this.counter === 1) {
         this.introText.setText(`
-          Control the blue person with the WASD keys.
+          Control the blue person with the arrow keys.
 
-          Control the pink person with the arrow keys.
+          Control the pink person with the WASD keys.
 
           Good luck!
 

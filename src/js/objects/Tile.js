@@ -31,7 +31,7 @@ export default class Tile extends GameSprite {
   }
 
   isWalkable () {
-    return this.obstacle == null
+    return this.obstacle === null
   }
 
   //at least one of the values of r, g and b must be 255

@@ -6,5 +6,9 @@
   {
     "spriteName": "kraiom",
     "fileName": "kraiom.png"
+  },
+  {
+    "spriteName": "mage",
+    "fileName": "mage.png"
   }
 ]

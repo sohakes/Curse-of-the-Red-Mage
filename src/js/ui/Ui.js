@@ -40,7 +40,7 @@ export default class UI {
     this.timer = this.game.add.text(
       10,
       10,
-      Math.floor(this.context.data.score),
+      Math.ceil(this.context.timeToLose),
       {
         font: '30px Arial',
         fill: '#ff0044',
@@ -51,7 +51,7 @@ export default class UI {
     this.score = this.game.add.text(
       this.game.world.width - 10,
       10,
-      this.context.data.score,
+      "score: " + Math.floor(this.context.data.score),
       {
         font: '30px Arial',
         fill: '#ff0044',
@@ -73,7 +73,7 @@ export default class UI {
 
   update () {
     if (!this.context.endFlag) {
-      this.timer.setText(10 - Math.floor(this.context.runningTime.seconds))
+      this.timer.setText(Math.ceil(this.context.timeToLose - this.context.runningTime.seconds))
     }
 
     if (!this.context.started) {

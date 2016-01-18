@@ -1,5 +1,6 @@
 import Map from '../map/Map'
 import Character from '../objects/Character'
+import Mage from '../objects/Mage'
 import UI from '../ui/Ui'
 const GAME = require('../../json/game.json')
 
@@ -7,8 +8,16 @@ export default class Game {
   create () {
     this.started = false
 
+    this.specialLevel = 2
+
     this.level = this.data.level
-    this.game.gameScale = 1.6 - this.level/15
+    if (this.level === this.specialLevel) {
+      this.game.gameScale = 1
+    } else {
+      this.game.gameScale = 1.6 - this.level/15
+    }
+
+    this.activatedSpecial = false
 
     this.game.world.setBounds(0, 0, GAME.width, GAME.height)
 
@@ -17,11 +26,13 @@ export default class Game {
 
     this.game.isPaused = false
 
+    this.timeToLose = 10
+
     let mapWidth = Math.floor(20 / this.game.gameScale)
     let mapHeight = Math.floor(12 / this.game.gameScale)
 
     this.map = new Map(this.game, mapWidth, mapHeight,
-       40 * this.game.gameScale, 40 * this.game.gameScale, 0, 0)
+       40 * this.game.gameScale, 40 * this.game.gameScale, 0, 0, this)
 
     let start1 = (this.map.grid[1][1].obstacle ? [1,2] : [1,1]);
 
@@ -33,6 +44,11 @@ export default class Game {
 
     this.character2 = new Character(this.game, start2[0], start2[1], this.map,
        2, this)
+
+    if (this.level === 6) {
+      this.mage = new Mage(this.game, Math.floor(mapWidth/2),
+        Math.floor(mapHeight/2) + 3, this.map, 2, this)
+    }
 
     this.startTime = this.time.create(false)
     this.startTime.start()
@@ -84,13 +100,27 @@ export default class Game {
     }
 
 
-    if (this.runningTime.seconds >= 10) {
+    if (this.runningTime.seconds >= this.timeToLose) {
       this.lost()
     }
 
-    if (this.nextTo(this.character1.mx, this.character1.my, this.character2.mx,
-        this.character2.my)) {
+    if (this.specialLevel !== this.level
+        && this.nextTo(this.character1.mx, this.character1.my,
+        this.character2.mx, this.character2.my)) {
       this.won()
+    } else {
+      if (!this.activatedSpecial && this.character1.isSamePlace(this.pinkTile)
+        && this.character2.isSamePlace(this.blueTile)) {
+          this.character1.destroy()
+          this.character2.destroy()
+          this.character3 = new Character(this.game, this.fusionTile.mx,
+            this.fusionTile.my, this.map, 3, this)
+
+          this.mage = new Mage(this.game, this.fusionTile.mx,
+            this.fusionTile.my + 4, this.map, this)
+          this.activatedSpecial = true
+          this.timeToLose = 30
+        }
     }
 
     if (this.endFlag) {
@@ -121,7 +151,7 @@ export default class Game {
     this.data.level++
     this.data.score += 10 - this.runningTime.seconds
 
-    if (this.level === 5) {
+    if (this.level === 6) {
       this.ui.gameWon()
       this.enterKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
       this.endFlag = true

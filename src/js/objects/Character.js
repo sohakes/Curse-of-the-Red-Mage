@@ -1,46 +1,35 @@
-import GameSprite from './GameSprite'
+import TileSprite from './TileSprite'
 
-export default class Character extends GameSprite {
+export default class Character extends TileSprite {
   //constructor (game, x, y, key, frame, group) {
   constructor (game, mx, my, map, type, context) {
-    super(game, map.grid[mx][my].realX, map.grid[mx][my].realY, 'character')
-
-    this.context = context
+    super(game, mx, my, map, context, 'character')
 
     this.lightDegradation = {
       sameDir: 0.01 + this.context.level/50,
       curve: 0.05 + this.context.level/50
     }
 
-    this.mx = mx
-
-    this.my = my
-
-    this.game = game
-
     this.cursors = this.game.input.keyboard.createCursorKeys();
 
     this.justWalked = false
-
-    this.map = map
-
-    this.scale.setTo(this.game.gameScale, this.game.gameScale)
 
     this.playerType = type
 
     this.surroundings = []
 
-    if (type == 1) {
-      this.movement = {
-        up: this.game.input.keyboard.addKey(Phaser.Keyboard.W),
-        down: this.game.input.keyboard.addKey(Phaser.Keyboard.S),
-        left: this.game.input.keyboard.addKey(Phaser.Keyboard.A),
-        right: this.game.input.keyboard.addKey(Phaser.Keyboard.D),
-      }
+
+
+    if (type === 1) {
       this.tint = 0xff00ff
-    } else {
-      this.movement = this.cursors
+      this.setMovementType(type)
+    } else if (type === 2){
       this.tint = 0x0000ff
+      this.setMovementType(type)
+    } else if (type === 3) {
+      this.tint = 0xff00ff
+      this.currentPlayer = 1
+      this.setMovementType(this.currentPlayer)
     }
 
     this.tintAll(this.mx, this.my)
@@ -97,9 +86,9 @@ export default class Character extends GameSprite {
 
   getColor (r, g, b) {
     return {
-      r: r,
-      g: g,
-      b: b
+      r,
+      g,
+      b
     }
   }
 
@@ -107,6 +96,10 @@ export default class Character extends GameSprite {
   move (direction) {
     if (this.justWalked) {
       return
+    }
+
+    if (this.playerType === 3) {
+      this.switchPlayer()
     }
 
     let beforeX = this.mx
@@ -150,6 +143,35 @@ export default class Character extends GameSprite {
     } else {
       return this.getColor(255, 255, 255)
     }
+  }
+
+  setMovementType (type) {
+    if (type === 1) {
+      this.movement = {
+        up: this.game.input.keyboard.addKey(Phaser.Keyboard.W),
+        down: this.game.input.keyboard.addKey(Phaser.Keyboard.S),
+        left: this.game.input.keyboard.addKey(Phaser.Keyboard.A),
+        right: this.game.input.keyboard.addKey(Phaser.Keyboard.D),
+      }
+    } else if (type === 2){
+      this.movement = this.cursors
+    }
+  }
+
+  switchPlayer () {
+    if (this.playerType !== 3) {
+      return
+    }
+
+    if (this.currentPlayer === 1) {
+      this.currentPlayer = 2
+      this.tint = 0x0000ff
+    } else {
+      this.currentPlayer = 1
+      this.tint = 0xff00ff
+    }
+
+    this.setMovementType(this.currentPlayer)
   }
 
 
