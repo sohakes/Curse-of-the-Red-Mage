@@ -36,6 +36,14 @@ export default class Character extends TileSprite {
 
   }
 
+  kill () {
+    this.surroundings.map(function (el) {
+      el[0].setLight(0, this.getPlayerColor(), this.playerType);
+      el[0].explored = false
+    }.bind(this));
+    this.destroy()
+  }
+
   tintAll (mx, my) {
 
     this.surroundings.map(function (el) {
@@ -133,18 +141,28 @@ export default class Character extends TileSprite {
 
     let color = 0x000000
     if (this.playerType === 1) {
-      this.tintAll(this.mx, this.my, this.getColor(1))
+      this.tintAll(this.mx, this.my, this.getPlayerColor())
     } else {
-      this.tintAll(this.mx, this.my, this.getColor(1))
+      this.tintAll(this.mx, this.my, this.getPlayerColor())
     }
   }
 
   getPlayerColor () {
     if (this.playerType === 1) {
-      return this.getColor(255, 255, 255)
-    } else {
-      return this.getColor(255, 255, 255)
+      return this.getColor(255, 0, 255)
+    } else if (this.playerType === 2){
+      return this.getColor(0, 0, 255)
     }
+
+    //D:
+    if (this.playerType === 3) {
+      if (this.currentPlayer === 1) {
+        return this.getColor(255, 0, 255)
+      } else if (this.currentPlayer === 2){
+        return this.getColor(0, 0, 255)
+      }
+    }
+    this.currentPlayer
   }
 
   setMovementType (type) {

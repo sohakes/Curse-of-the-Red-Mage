@@ -13,8 +13,8 @@ export default class Map {
     this.widthMap = widthMap
     this.heightMap = heightMap
     this.game = game
-    this.tileGroup = this.game.add.group()
-    this.objectGroup = this.game.add.group()
+    this.tileGroup = this.context.tileGroup
+    this.objectGroup = this.context.objectGroup
     this.createMap(widthMap, heightMap, this.grid)
 
     if (this.context.level === this.context.specialLevel) {

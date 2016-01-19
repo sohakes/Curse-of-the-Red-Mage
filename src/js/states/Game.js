@@ -10,6 +10,12 @@ export default class Game {
 
     this.started = false
 
+    this.game.context = this
+
+    this.tileGroup = this.game.add.group()
+    this.objectGroup = this.game.add.group()
+    this.overlayGroup = this.game.add.group()
+
     this.specialLevel = 2
 
     this.level = this.data.level
@@ -112,25 +118,29 @@ export default class Game {
       this.lost()
     }
 
-    if (this.specialLevel !== this.level
-        && this.nextTo(this.character1.mx, this.character1.my,
+    if (this.nextTo(this.character1.mx, this.character1.my,
         this.character2.mx, this.character2.my)) {
-      this.won()
-    } else {
-      if (this.specialLevel === this.level
-        && !this.activatedSpecial && this.character1.isSamePlace(this.pinkTile)
-        && this.character2.isSamePlace(this.blueTile)) {
-          this.character1.destroy()
-          this.character2.destroy()
-          this.character3 = new Character(this.game, this.fusionTile.mx,
-            this.fusionTile.my, this.map, 3, this)
-
-          this.mage = new Mage(this.game, this.fusionTile.mx,
-            this.fusionTile.my + 4, this.map, this)
-          this.activatedSpecial = true
-          this.timeToLose = 30
-        }
+      if (this.level !== this.specialLevel) {
+        this.won()
+      } else if (!this.activatedSpecial) {
+        this.timeToLose = Math.floor(this.runningTime.seconds + 10)
+      }
     }
+
+    if (this.specialLevel === this.level
+      && !this.activatedSpecial && this.character1.isSamePlace(this.pinkTile)
+      && this.character2.isSamePlace(this.blueTile)) {
+        this.character1.kill()
+        this.character2.kill()
+        this.character3 = new Character(this.game, this.fusionTile.mx,
+          this.fusionTile.my, this.map, 3, this)
+
+        this.mage = new Mage(this.game, this.fusionTile.mx,
+          this.fusionTile.my + 4, this.map, this)
+        this.activatedSpecial = true
+        this.timeToLose = Math.floor(this.runningTime.seconds + 30)
+      }
+
 
     if (this.endFlag) {
       if (this.enterKey.isDown) {
@@ -147,6 +157,10 @@ export default class Game {
     this.ui.lost()
     this.character1.destroy()
     this.character2.destroy()
+
+    if (this.character3) {
+      this.character3.destroy()
+    }
     this.enterKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
     this.endFlag = true
   }
