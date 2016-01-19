@@ -15,6 +15,7 @@ export default class Map {
     this.game = game
     this.tileGroup = this.context.tileGroup
     this.objectGroup = this.context.objectGroup
+    console.log(widthMap, heightMap);
     this.createMap(widthMap, heightMap, this.grid)
 
     if (this.context.level === this.context.specialLevel) {
@@ -112,6 +113,23 @@ export default class Map {
       });
     }
 
+    var randInt = function (min, max) {
+      return Math.floor(Math.random() * (max - min) + min);
+    }
+
+    var carveRandom = function (attempts, xT, yT, grid) {
+      console.log(attempts)
+      while (attempts--) {
+        let x = randInt(1, xT-1);
+        let y = randInt(1, yT-1);
+        if (grid[x][y].state == true) {
+          console.log('success');
+          grid[x][y].state == false;
+          grid[0][0].empties++;
+        }
+      }
+    }
+
     var wallcount = function (x, y, maze) {
       var cnt = 0;
       var dir = [[0,-1], [0,1], [1,0], [-1,0]];
@@ -124,8 +142,8 @@ export default class Map {
 
     var uncarve = function (amount, xT, yT, maze) {
       while(amount) {
-        for (x = 1; x < xT-1; x++) {
-          for (y = 1; y < yT-1; y++) {
+        for (let x = 1; x < xT-1; x++) {
+          for (let y = 1; y < yT-1; y++) {
             if (maze[x][y].state == false && wallcount(x, y, maze) == 3) {
               maze[x][y].state = true;
               amount--;
@@ -136,8 +154,26 @@ export default class Map {
       }
     }
 
+    var uncarvePasses = function (passes, xT, yT, grid) {
+      while (passes--) {
+        for (let x = 1; x < xT-1; x++) {
+          for (let y = 1; y < yT-1; y++) {
+            if (grid[x][y].state == false && wallcount(x, y, grid) == 3) {
+              grid[x][y].state = true;
+              grid[0][0].empties--;
+            }
+          }
+        }
+      }
+    }
+
     var maze = createStone(widthMap, heightMap);
     carveMaze(widthMap, heightMap, maze);
+
+    let loopAtt = ((widthMap -2) * (heightMap -2) - maze[0][0].empties) * 0.05;
+    carveRandom(Math.floor(loopAtt), widthMap, heightMap, maze);
+
+    //uncarvePasses(1, widthMap, heightMap, maze);
 
     //Position (x, y) = (0, 0) is the top left corner
     for (let i = 0; i < widthMap; i++) {
