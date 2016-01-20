@@ -1,6 +1,7 @@
 import Map from '../map/Map'
 import Character from '../objects/Character'
 import Mage from '../objects/Mage'
+import Trapdoor from '../objects/Trapdoor'
 import UI from '../ui/Ui'
 const GAME = require('../../json/game.json')
 
@@ -25,7 +26,7 @@ export default class Game {
     this.overlayGroup = this.game.add.group()
     this.overlayGroup.z = 4
 
-    this.specialLevel = 1
+    this.specialLevel = 6
 
     this.switch = 0
 
@@ -161,6 +162,7 @@ export default class Game {
 
         this.mage = new Mage(this.game, this.fusionTile.mx,
           this.fusionTile.my + 4, this.map, this)
+
         this.activatedSpecial = true
         this.timeToLose = Math.floor(this.runningTime.seconds + 30)
 

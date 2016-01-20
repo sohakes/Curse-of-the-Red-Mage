@@ -1,6 +1,7 @@
 import Tile from '../objects/Tile'
 import Obstacle from '../objects/Obstacle'
 import Switch from '../objects/Switch'
+import Trapdoor from '../objects/Trapdoor'
 
 export default class Map {
   constructor (game, widthMap, heightMap, widthTile,
@@ -84,6 +85,13 @@ export default class Map {
       fusionPlat.tint = 0xccffff
       fusionPlat.scale.setTo(this.game.gameScale, this.game.gameScale)
       this.context.objectGroup.add(fusionPlat)
+
+
+
+      this.grid[this.context.fusionTile.mx][this.context.fusionTile.my + 4].obstacle = new Trapdoor(this.game, this.context.fusionTile.mx,
+        this.context.fusionTile.my + 4, this, this.context)
+        this.grid[this.context.fusionTile.mx][this.context.fusionTile.my + 4].obstacle.tint = 0x000000
+        this.context.trapdoor = this.grid[this.context.fusionTile.mx][this.context.fusionTile.my + 4].obstacle
     }
   }
 

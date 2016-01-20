@@ -16,7 +16,7 @@ export default class Fireball extends GameSprite {
 
     this.map = map
 
-    let velocity = 50
+    let velocity = 50 + this.context.switch * 5
 
     this.game.physics.enable(this, Phaser.Physics.ARCADE)
 

@@ -7,6 +7,6 @@ export default class Trapdoor extends TileSprite {
   }
 
   openTrap () {
-
+    this.loadTexture('trapdoor_open')
   }
 }

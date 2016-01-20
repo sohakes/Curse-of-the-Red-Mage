@@ -42,5 +42,13 @@
   {
     "spriteName": "floor",
     "fileName": "floor.png"
+  },
+  {
+    "spriteName": "trapdoor_open",
+    "fileName": "trapdoor_open.png"
+  },
+  {
+    "spriteName": "trapdoor_closed",
+    "fileName": "trapdoor_closed.png"
   }
 ]
