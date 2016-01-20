@@ -21,6 +21,14 @@ export default class Mage extends TileSprite {
     let fireball = new Fireball(this.game, mageCenter.x, mageCenter.y,
       characterCenter.x , characterCenter.y, this.map, this.context)
 
+    if (this.context.switch > 1) {
+
+      let fireball2 = new Fireball(this.game, mageCenter.x, mageCenter.y,
+        characterCenter.x -50, characterCenter.y+50, this.map, this.context)
+      let fireball3 = new Fireball(this.game, mageCenter.x, mageCenter.y,
+        characterCenter.x +50, characterCenter.y+50, this.map, this.context)
+    }
+
     this.game.time.events.add(
       Phaser.Timer.SECOND * (3 - this.context.switch * 0.7), function () {
       this.throwFireball()

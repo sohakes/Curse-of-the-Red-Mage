@@ -28,9 +28,9 @@ export default class GoodEnd {
     this.endText1 = this.add.text(
       10,
       10,
-      ` The blue and pink person defeated the mage
-        after activating a trap hole that, for some strange
-        reason, was below him.
+      ` The blue and pink people defeated the mage
+ after activating a trap hole that, for some strange
+ reason, was beneath him.
       `,
       normal_text
     )
@@ -38,8 +38,8 @@ export default class GoodEnd {
     this.endText2 = this.add.text(
       this.game.width - 10,
       this.game.height - 20,
-      ` And them they both probably lived happily
-      forever after.
+      ` And they both probably lived happily
+ forever after.
       `,
       normal_text
     )
