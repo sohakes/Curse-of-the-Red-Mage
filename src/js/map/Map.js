@@ -184,12 +184,10 @@ export default class Map {
     }
 
     var carveRandom = function (attempts, xT, yT, grid) {
-      console.log(attempts)
       while (attempts--) {
         let x = randInt(1, xT-1);
         let y = randInt(1, yT-1);
         if (grid[x][y].state == true) {
-          console.log('success');
           grid[x][y].state == false;
           grid[0][0].empties++;
         }
@@ -236,7 +234,7 @@ export default class Map {
     var maze = createStone(widthMap, heightMap);
     carveMaze(widthMap, heightMap, maze);
 
-    let loopAtt = ((widthMap -2) * (heightMap -2) - maze[0][0].empties) * 0.05;
+    let loopAtt = ((widthMap -2) * (heightMap -2) - maze[0][0].empties) * 0.1;
     carveRandom(Math.floor(loopAtt), widthMap, heightMap, maze);
 
     //uncarvePasses(1, widthMap, heightMap, maze);

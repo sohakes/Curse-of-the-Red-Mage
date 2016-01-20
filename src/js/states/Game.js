@@ -96,6 +96,7 @@ export default class Game {
 
 
   init (data) {
+    this.gameWon = false
     this.data = data
   }
 
