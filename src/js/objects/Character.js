@@ -151,7 +151,7 @@ export default class Character extends TileSprite {
     this.updateRealPos ()
 
     this.justWalked = true
-    this.game.time.events.add(Phaser.Timer.SECOND * 0.1, function () {
+    this.game.time.events.add(Phaser.Timer.SECOND * 0.15, function () {
       this.justWalked = false
     }, this);
 

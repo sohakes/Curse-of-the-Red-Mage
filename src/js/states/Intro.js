@@ -23,7 +23,7 @@ export default class Intro {
     this.introText = this.add.text(
       GAME.width / 2,
       GAME.height / 2,
-      ` A great but bored mage wanted to have some fun. For that, he captured
+      `        A great but bored mage wanted to have some fun. For that, he captured
         a blue and a pink person, threw them in a dungeon, and cast a curse
         upon them.
 
@@ -32,8 +32,8 @@ export default class Intro {
         separated again and will find themselves in another labyrinthic dungeon.
 
         Happily for our colored characters, the mage was good enough to give a
-        torch to them, and let them free if they happen to get together five
-        times. So, good luck!
+        torch to each one of them, and let them free if they happen to get 
+        together five times. So, good luck!
       `,
       normal_text
     )
