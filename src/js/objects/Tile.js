@@ -3,7 +3,7 @@ import GameSprite from './GameSprite'
 export default class Tile extends GameSprite {
   constructor (game, mx, my, realX, realY, group, obstacle) {
     obstacle = obstacle || null
-    super(game, realX, realY, 'map_spritesheet', 'grass_1', group)
+    super(game, realX, realY, 'floor', null, group)
     this.mx = mx
     this.my = my
     this.realX = realX

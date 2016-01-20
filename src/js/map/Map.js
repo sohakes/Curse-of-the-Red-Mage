@@ -87,6 +87,32 @@ export default class Map {
     }
   }
 
+  findFreePink () {
+    for (let i = 1; i < this.widthMap; i++) {
+      for (let j = 1; j < this.heightMap; j++) {
+          if (this.grid[i][j].isWalkable()) {
+            return {
+              x: i,
+              y: j
+            }
+          }
+      }
+    }
+  }
+
+  findFreeBlue () {
+    for (let i = this.widthMap - 2; i > 1; i--) {
+      for (let j = this.heightMap - 2; j > 1; j--) {
+          if (this.grid[i][j].isWalkable()) {
+            return {
+              x: i,
+              y: j
+            }
+          }
+      }
+    }
+  }
+
   getColor (r, g, b) {
     return {
       r,

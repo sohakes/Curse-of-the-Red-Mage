@@ -70,7 +70,7 @@ export default class About {
       button_style
     )
 
-    const cc = this.add.text(
+    /*const cc = this.add.text(
       30,
       250,
       `Assets licensed under Creative Commons:
@@ -81,21 +81,22 @@ export default class About {
       -
       - `,
       text_style
-    )
+    )*/
 
-    this.add.text(
-      450,
-      250,
-      `Copyright © 2016
+    let aboutText = this.add.text(
+      this.game.width / 2,
+      this.game.height / 2 + 60,
+      `
 
       Rafael Tomazela (rafaeltomazela.com)
-      Guilherme Marques (???)
+      Guilherme Marques (github.com/guiocm)
 
       Special thanks:
-      - Breno (breno.io) for the boilerplate
-      code`,
+      - Breno Freitas (breno.io) for the boilerplate code`,
       text_style_2
     )
+
+    aboutText.anchor.setTo(0.5, 0.5)
 
     back.inputEnabled = true
     back.input.useHandCursor = true

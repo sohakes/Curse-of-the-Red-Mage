@@ -34,5 +34,13 @@
   {
     "spriteName": "menuimg",
     "fileName": "menuimg.png"
+  },
+  {
+    "spriteName": "wall",
+    "fileName": "wall.png"
+  },
+  {
+    "spriteName": "floor",
+    "fileName": "floor.png"
   }
 ]

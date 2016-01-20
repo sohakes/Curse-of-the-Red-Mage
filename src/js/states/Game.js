@@ -59,15 +59,14 @@ export default class Game {
     this.map = new Map(this.game, mapWidth, mapHeight,
        tileWidth * this.game.gameScale, tileHeight * this.game.gameScale, 0, 0, this)
 
-    let start1 = (this.map.grid[1][1].obstacle ? [1,2] : [1,1]);
+    let start1 = this.map.findFreePink()
 
-    this.character1 = new Character(this.game, start1[0], start1[1], this.map,
+    this.character1 = new Character(this.game, start1.x, start1.y, this.map,
        1, this)
 
-    let start2 = (this.map.grid[mapWidth - 2][mapHeight - 2].obstacle ?
-       [mapWidth - 2,mapHeight - 3] : [mapWidth - 2,mapHeight - 2]);
+    let start2 = this.map.findFreeBlue()
 
-    this.character2 = new Character(this.game, start2[0], start2[1], this.map,
+    this.character2 = new Character(this.game, start2.x, start2.y, this.map,
        2, this)
 
     /*if (this.level === 6) {
