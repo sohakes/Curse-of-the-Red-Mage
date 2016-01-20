@@ -1,26 +1,28 @@
+const textFont = 'comic sans'
+
 const styling = {
-  font: 'Arial',
+  font: textFont,
   fontSize: '72px',
   fontWeight: 100,
   fill: '#ffffff'
 }
 
 const sub_styling = {
-  font: 'Arial',
+  font: textFont,
   fontSize: '50px',
   fontWeight: 100,
   fill: '#ffffff'
 }
 
 const button_style = {
-  font: 'Arial',
+  font: textFont,
   fontSize: '28px',
   fontWeight: 100,
   fill: '#000000'
 }
 
 const button_style_over = {
-  font: 'Arial',
+  font: textFont,
   fontSize: '28px',
   fontWeight: 100,
   fill: "#333333"
