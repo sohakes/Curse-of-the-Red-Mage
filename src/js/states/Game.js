@@ -5,6 +5,10 @@ import UI from '../ui/Ui'
 const GAME = require('../../json/game.json')
 
 export default class Game {
+  preload () {
+    this.game.stage.backgroundColor = '#000000'
+  }
+
   create () {
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
 

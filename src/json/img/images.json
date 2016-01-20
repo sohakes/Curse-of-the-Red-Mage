@@ -26,10 +26,13 @@
   {
     "spriteName": "smoke",
     "fileName": "smoke.png"
-  }
-  ,
+  },
   {
     "spriteName": "theend",
     "fileName": "theend.png"
+  },
+  {
+    "spriteName": "menuimg",
+    "fileName": "menuimg.png"
   }
 ]

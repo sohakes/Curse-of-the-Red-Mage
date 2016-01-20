@@ -5,6 +5,14 @@ const styling = {
   fill: '#ffffff'
 }
 
+const sub_styling = {
+  font: 'Arial',
+  fontSize: '50px',
+  fontWeight: 100,
+  fill: '#ffffff'
+}
+
+
 const button_style = {
   font: 'Arial',
   fontSize: '28px',
@@ -41,11 +49,18 @@ export default class About {
   }
 
   create () {
-    const title = this.add.text(
+    this.title = this.add.text(
       this.game.world.centerX,
-      this.game.world.centerY - 100,
-      'We still dont know',
+      this.game.world.centerY - 140,
+      "Colorful People Quest",
       styling
+    )
+
+    this.subtitle = this.add.text(
+      this.game.world.centerX,
+      this.game.world.centerY - 80,
+      "Curse of The Red Mage",
+      sub_styling
     )
 
     const back = this.add.text(
@@ -74,7 +89,11 @@ export default class About {
       `Copyright © 2016
 
       Rafael Tomazela (rafaeltomazela.com)
-      Guilherme Marques (???)`,
+      Guilherme Marques (???)
+
+      Special thanks:
+      - Breno (breno.io) for the boilerplate
+      code`,
       text_style_2
     )
 
@@ -92,8 +111,8 @@ export default class About {
     back.events.onInputOut.add(() => {
       back.setStyle(button_style)
     })
-
-    title.anchor.setTo(0.5)
+    this.title.anchor.setTo(0.5)
+    this.subtitle.anchor.setTo(0.5)
     back.anchor.setTo(0.5)
   }
 }
