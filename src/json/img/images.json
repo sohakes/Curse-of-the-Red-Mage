@@ -14,5 +14,17 @@
   {
     "spriteName": "fireball",
     "fileName": "fireball.png"
+  },
+  {
+    "spriteName": "platform",
+    "fileName": "platform.png"
+  },
+  {
+    "spriteName": "switch",
+    "fileName": "switch.png"
+  },
+  {
+    "spriteName": "smoke",
+    "fileName": "smoke.png"
   }
 ]

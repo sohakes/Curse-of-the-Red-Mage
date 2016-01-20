@@ -5,6 +5,10 @@ export default class Character extends TileSprite {
   constructor (game, mx, my, map, type, context) {
     super(game, mx, my, map, context, 'character')
 
+    this.game = game
+
+    this.context.characterGroup.add(this)
+
     this.lightDegradation = {
       sameDir: 0.01 + this.context.level/50,
       curve: 0.05 + this.context.level/50
@@ -42,6 +46,13 @@ export default class Character extends TileSprite {
       el[0].explored = false
     }.bind(this));
     this.destroy()
+  }
+
+  die () {
+    let smoke = this.game.add.sprite(this.x, this.y, 'smoke')
+    this.game.add.tween(smoke).to( { alpha: 0 }, 1000,
+      Phaser.Easing.Linear.None, true, 0);
+    super.destroy()
   }
 
   tintAll (mx, my) {

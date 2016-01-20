@@ -116,8 +116,8 @@ export default class UI {
     const wonTextSub = this.game.add.text(
       this.game.world.centerX,
       this.game.world.centerY,
-      'Your score is ' + this.context.data.score
-        + '. Press ENTER to go back to menu',
+      'Your score is ' + this.context.data.score.toPrecision(2)
+        + ' (the less, the better).\n Press ENTER to go back to menu',
       smaller_text
     )
 

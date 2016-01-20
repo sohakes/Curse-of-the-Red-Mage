@@ -5,6 +5,9 @@ export default class Fireball extends GameSprite {
   constructor (game, x, y, goX, goY, map, context) {
     super(game, x, y, 'fireball')
 
+    this.anchor.x = 0.5
+    this.anchor.y = 0.5
+
     this.game = context.game
 
     this.context = context
@@ -27,6 +30,7 @@ export default class Fireball extends GameSprite {
   }
 
   getMxMy () {
+
     return {
       mx: Math.floor(this.x / this.map.widthTile),
       my: Math.floor(this.y / this.map.heightTile)
@@ -35,6 +39,8 @@ export default class Fireball extends GameSprite {
 
   update () {
     let mapPos = this.getMxMy()
+    //if(this.map.grid[mapPos.mx][mapPos.my])
+    //  this.map.grid[mapPos.mx][mapPos.my].setDebugText("Here"+Math.random())
     if (this.context.character3.isSamePlace(mapPos)) {
       this.context.lost()
     }

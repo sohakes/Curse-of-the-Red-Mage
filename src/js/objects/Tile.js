@@ -29,6 +29,10 @@ export default class Tile extends GameSprite {
     this.text = this.game.add.text(realX, realY, this.getTileDebugText(), style);
   }
 
+  setDebugText (text) {
+    this.text.setText(text)
+  }
+
   getTileDebugText () {
     let text = ""
     for (let source in this.lightSources) {

@@ -1,5 +1,6 @@
 import Tile from '../objects/Tile'
 import Obstacle from '../objects/Obstacle'
+import Switch from '../objects/Switch'
 
 export default class Map {
   constructor (game, widthMap, heightMap, widthTile,
@@ -45,13 +46,44 @@ export default class Map {
         }
       }
 
-      this.grid[middleX][middleY - 2].setLight(1, this.getColor(255, 200, 200), 10)
+      this.createSwitches = function () {
+        let gswitch = new Switch(this.game, roomStartX, roomStartY,
+          this, this.context)
+        this.context.objectGroup.add(gswitch)
+
+        gswitch = new Switch(this.game, roomStartX,
+          roomStartY + roomHeight - 1, this, this.context)
+          this.context.objectGroup.add(gswitch)
+
+        gswitch = new Switch(this.game, roomStartX + roomWidth - 1,
+          roomStartY, this, this.context)
+          this.context.objectGroup.add(gswitch)
+
+        gswitch = new Switch(this.game, roomStartX + roomWidth - 1,
+          roomStartY + roomHeight - 1, this, this.context)
+        this.context.objectGroup.add(gswitch)
+      }
+
+      this.grid[middleX][middleY - 2].setLight(1, this.getColor(255, 255, 255), 10)
       this.grid[middleX - 1][middleY - 2].setLight(1, this.getColor(255, 0, 255), 10)
       this.grid[middleX + 1][middleY - 2].setLight(1, this.getColor(0, 0, 255), 10)
 
       this.context.pinkTile = this.grid[middleX - 1][middleY - 2]
       this.context.blueTile = this.grid[middleX + 1][middleY - 2]
       this.context.fusionTile = this.grid[middleX][middleY - 2]
+
+      let pinkPlat = this.game.add.sprite(this.context.pinkTile.x, this.context.pinkTile.y, 'platform')
+      pinkPlat.tint = 0xffccff
+      pinkPlat.scale.setTo(this.game.gameScale, this.game.gameScale)
+      this.context.objectGroup.add(pinkPlat)
+      let bluePlat = this.game.add.sprite(this.context.blueTile.x, this.context.pinkTile.y, 'platform')
+      bluePlat.tint = 0xccccff
+      bluePlat.scale.setTo(this.game.gameScale, this.game.gameScale)
+      this.context.objectGroup.add(bluePlat)
+      let fusionPlat = this.game.add.sprite(this.context.fusionTile.x, this.context.pinkTile.y, 'platform')
+      fusionPlat.tint = 0xccffff
+      fusionPlat.scale.setTo(this.game.gameScale, this.game.gameScale)
+      this.context.objectGroup.add(fusionPlat)
     }
   }
 

@@ -10,4 +10,11 @@ export default class GameSprite extends Phaser.Sprite {
 
     group.add(this)
   }
+
+  getCenter () {
+    return {
+      x: this.x + this.width / 2,
+      y: this.y + this.height / 2
+    }
+  }
 }

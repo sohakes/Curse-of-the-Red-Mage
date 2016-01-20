@@ -12,6 +12,8 @@ const red_text = {
   fill: '#ff0000'
 }
 
+const GAME = require('../../json/game.json')
+
 export default class Intro {
   create () {
     this.game.stage.backgroundColor = '#2D4548'
@@ -19,8 +21,8 @@ export default class Intro {
     this.enterKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
 
     this.introText = this.add.text(
-      10,
-      10,
+      GAME.width / 2,
+      GAME.height / 2,
       ` A great but bored mage wanted to have some fun. For that, he captured
         a blue and a pink person, threw them in a dungeon, and cast a curse
         upon them.
@@ -35,6 +37,9 @@ export default class Intro {
       `,
       normal_text
     )
+
+    this.introText.anchor.x = 0.5
+    this.introText.anchor.y = 0.5
 
     this.counter = 0
 
