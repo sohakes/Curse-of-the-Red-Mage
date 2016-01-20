@@ -5,6 +5,7 @@ import Kraiom from './Kraiom'
 import Menu from './Menu'
 import About from './About'
 import Intro from './Intro'
+import GoodEnd from './GoodEnd'
 
 
 const GAME_DATA = require('../../json/game')
@@ -26,6 +27,7 @@ window.GAME = function (handler) {
   game.state.add('menu', Menu)
   game.state.add('about', About)
   game.state.add('intro', Intro)
+  game.state.add('goodend', GoodEnd)
 
   game.state.start('boot', true, false, handler)
 }

@@ -167,7 +167,11 @@ export default class Game {
 
     if (this.endFlag) {
       if (this.enterKey.isDown) {
-        this.state.start('menu', true, false)
+        if (this.gameWon){
+          this.state.start('goodend', true, false)
+        } else {
+          this.state.start('menu', true, false)
+        }
       }
     }
 
@@ -206,6 +210,7 @@ export default class Game {
       this.enterKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
       this.endFlag = true
       this.mage.die()
+      this.gameWon = true
     } else {
       this.state.start('game', true, false, this.data)
     }

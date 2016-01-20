@@ -49,6 +49,10 @@ export default class Character extends TileSprite {
   }
 
   die () {
+    if (this.dead) {
+      return
+    }
+    this.dead = true
     let smoke = this.game.add.sprite(this.x, this.y, 'smoke')
     this.game.add.tween(smoke).to( { alpha: 0 }, 1000,
       Phaser.Easing.Linear.None, true, 0);
